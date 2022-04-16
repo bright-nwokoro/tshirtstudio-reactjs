@@ -1,0 +1,55 @@
+@font-face {
+    font-family: Libre Franklin;
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+    src: local(""),
+      url(/appFonts/libre-franklin-v7-latin-regular.woff2) format("woff2"),
+      url(/appFonts/libre-franklin-v7-latin-regular.woff) format("woff"),
+      url(/appFonts/libre-franklin-v7-latin-regular.svg) format("svg"),
+      url(/appFonts/libre-franklin-v7-latin-regular.ttf) format("truetype");
+  }
+  @font-face {
+    font-family: Libre Franklin;
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+    src: local(""),
+      url(/appFonts/libre-franklin-v7-latin-500.woff2) format("woff2"),
+      url(/appFonts/libre-franklin-v7-latin-500.woff) format("woff"),
+      url(/appFonts/libre-franklin-v7-latin-500.svg) format("svg"),
+      url(/appFonts/libre-franklin-v7-latin-500.ttf) format("truetype");
+  }
+  @font-face {
+    font-family: Libre Franklin;
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+    src: local(""),
+      url(/appFonts/libre-franklin-v7-latin-600.woff2) format("woff2"),
+      url(/appFonts/libre-franklin-v7-latin-600.woff) format("woff"),
+      url(/appFonts/libre-franklin-v7-latin-600.svg) format("svg"),
+      url(/appFonts/libre-franklin-v7-latin-600.ttf) format("truetype");
+  }
+  @font-face {
+    font-family: Libre Franklin;
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+    src: local(""),
+      url(/appFonts/libre-franklin-v7-latin-700.woff2) format("woff2"),
+      url(/appFonts/libre-franklin-v7-latin-700.woff) format("woff"),
+      url(/appFonts/libre-franklin-v7-latin-700.svg) format("svg"),
+      url(/appFonts/libre-franklin-v7-latin-700.ttf) format("truetype");
+  }
+  html {
+    font-size: 10px;
+  }
+  body {
+    margin: 0;
+    padding: 0;
+    font-size: 11px;
+    font-family: "Libre Franklin", sans-serif;
+    letter-spacing: 0.06rem;
+    overflow-x: hidden !important;
+  }

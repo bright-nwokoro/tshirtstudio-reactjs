@@ -1,0 +1,114 @@
+.mainForm {
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  max-width: 600px;
+  height: auto;
+  padding-top: 2rem;
+}
+
+.mainForm__TitleText--h2 {
+  font-size: 1rem;
+  letter-spacing: 0.3rem;
+  color: #1d1e2b;
+  font-weight: 400;
+  line-height: 20px;
+  text-align: center;
+  margin-top: 2rem;
+  word-break: break-word;
+  word-wrap: break-word;
+  text-transform: uppercase;
+}
+
+.mainForm__TitleText--h1 {
+  font-size: 3.3rem;
+  font-weight: 600;
+  color: #1d1e2b;
+  text-align: center;
+  margin-top: 0;
+  margin-bottom: 5rem;
+  word-break: break-word;
+  word-wrap: break-word;
+}
+
+.mainForm__Content {
+  padding: 10% 15% 6% 15%;
+  max-width: 600px;
+  margin: 0 auto;
+  background: #eeeef7;
+  box-shadow: 0 1px 0 1px #d2d3e5;
+  margin-bottom: 10rem;
+}
+
+.mainForm__inputLabel {
+  min-height: 23px;
+  color: #1d1e2b;
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 23px;
+  word-break: break-word;
+  word-wrap: break-word;
+}
+
+.mainForm__inputField {
+  box-sizing: border-box;
+  width: 100% !important;
+  padding: 4%;
+  border: 1px solid #d2d3e5;
+}
+
+.mainForm__inputLabel--topMargin {
+  margin-top: 8%;
+}
+
+.mainForm__link {
+  display: inline-block;
+  margin-top: 1%;
+  margin-bottom: 1%;
+  width: 100%;
+  color: #6219ff;
+  font-weight: 700;
+  line-height: 20px;
+  word-break: break-all;
+  word-wrap: break-word;
+}
+
+.mainForm__Button {
+  background-color: #ff5c5c;
+  display: inline-block;
+  justify-content: center;
+  transform: rotate(-2deg);
+  margin: 2rem 1rem 1rem 0;
+  text-decoration: none;
+  text-align: center;
+  text-transform: uppercase;
+  color: #fff;
+  font-size: 1.4rem;
+  font-weight: 400;
+  letter-spacing: 0.3rem;
+  padding: 2rem 2.5rem 2rem 2.5rem;
+  position: relative;
+  border: none;
+  cursor: pointer;
+}
+
+.mainForm__bottomSection {
+  text-align: center;
+  border-top: 1px solid #979797;
+  margin-top: 8%;
+  padding-top: 6%;
+}
+
+.mainForm__inputFieldSmall {
+  font-size: 0.9rem;
+  margin: 3px 0;
+  display: flex;
+}
+
+@media (max-width: 1440px) {
+  .gutters {
+    padding-left: 6%;
+    padding-right: 6%;
+  }
+}
