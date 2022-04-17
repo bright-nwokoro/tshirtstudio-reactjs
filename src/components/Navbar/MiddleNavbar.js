@@ -1,12 +1,25 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
-import { useCartContext } from "../../context/cart";
+import axios from "axios";
 
+// import { useCartContext } from "../../context/cart";
 
 import "./MiddleNavbar.css";
 
 function MiddleNavbar() {
-  const {cartItems} = useCartContext()
+  const [cartLength, setCartLength] = useState(0);
+
+  useEffect(() => {
+    axios.defaults.withCredentials = true;
+    axios({
+      method: "GET",
+      url: "http://localhost:3100/api/v1/cart",
+      withCredentials: true,
+    }).then((response) => {
+      setCartLength(response.data.data.cartLength);
+    });
+  }, [cartLength]);
+
   return (
     <>
       <div className="middleNav gutters">
@@ -65,7 +78,7 @@ function MiddleNavbar() {
             className="basketWidget__itemcount"
             xmlns="http://www.w3.org/1999/xhtml"
           >
-            {cartItems.length}
+            {cartLength}
           </span>
         </NavLink>
       </div>

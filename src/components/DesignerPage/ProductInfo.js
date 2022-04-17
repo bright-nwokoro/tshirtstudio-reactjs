@@ -1,4 +1,5 @@
-import React from "react";
+import axios from "axios";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useCartContext } from "../../context/cart";
 
@@ -6,16 +7,57 @@ import "../Navbar/MiddleNavbar.css";
 import "./DesignerPage.css";
 
 function ProductInfo(props) {
-  let navigate = useNavigate();
-  const routeChange = (path) => {
-    // let path = `newPath`;
-    navigate(`${path}`);
-  };
   const { colourNumber, setColourNumber } = props;
-  const { addToCart, cartItems, addQuantity, subQuantity } = useCartContext();
-  console.log(cartItems, colourNumber);
-  const itemQuantity = !cartItems.find(item => item.id === colourNumber) ? null : cartItems.find(item => item.id === colourNumber).quantity;
-  
+
+  const [quantity, setQuantity] = useState(1);
+
+  const increaseQuantity = () => {
+    setQuantity(quantity + 1);
+  };
+
+  const decreaseQuantity = () => {
+    const itemQunatity = quantity === 0 ? 1 : setQuantity(quantity - 1);
+    return itemQunatity;
+  };
+
+  const addToCartHandler = (e) => {
+    e.preventDefault();
+
+    const imgQuery = document.getElementById(`colour${colourNumber}`);
+    const color = imgQuery ? imgQuery.title : "no title";
+
+    const select = document.getElementById("sizeOption");
+    const size = select
+      ? [select.options[select.selectedIndex].text, select.value]
+      : ["", ""];
+
+    const name = "Hoodie";
+    const price = "$20";
+    const backImage = `/hoodies-image/back/${colourNumber}.jpeg`;
+    const frontImage = `/hoodies-image/back/${colourNumber}.jpeg`;
+    
+    axios.defaults.withCredentials = true;
+    axios({
+      method: "POST",
+      url: "http://localhost:3100/api/v1/cart",
+      data: {
+        name: name,
+        price: price,
+        color: color,
+        size: size,
+        backImage: backImage,
+        frontImage: frontImage,
+        quantity: quantity,
+      },
+    })
+      .then((response) => {
+        alert(response.data.message);
+      })
+      .catch((error) => {
+        alert(error.response.data.message);
+      });
+  };
+
   return (
     <>
       <div className="designerPage__productInfo">
@@ -84,14 +126,11 @@ function ProductInfo(props) {
           >
             <div
               className="designerProductInfo__colourBackground"
-              onclick={() => {
+              onClick={() => {
                 setColourNumber("209");
               }}
             >
-              <a
-                href="#"
-                onclick="changeProductColour(209);mmClose();return false"
-              >
+              <a href="#">
                 <input
                   type="hidden"
                   id="availableColourID209"
@@ -126,10 +165,7 @@ function ProductInfo(props) {
               className="designerProductInfo__colourBackground"
               onClick={() => setColourNumber("6")}
             >
-              <a
-                href="#"
-                onclick="changeProductColour(6);mmClose();return false"
-              >
+              <a href="#">
                 <input
                   type="hidden"
                   id="availableColourID6"
@@ -164,10 +200,7 @@ function ProductInfo(props) {
               className="designerProductInfo__colourBackground"
               onClick={() => setColourNumber("155")}
             >
-              <a
-                href="#"
-                onclick="changeProductColour(155);mmClose();return false"
-              >
+              <a href="#">
                 <input
                   type="hidden"
                   id="availableColourID155"
@@ -202,10 +235,7 @@ function ProductInfo(props) {
               className="designerProductInfo__colourBackground"
               onClick={() => setColourNumber("51")}
             >
-              <a
-                href="#"
-                onclick="changeProductColour(51);mmClose();return false"
-              >
+              <a href="#">
                 <input
                   type="hidden"
                   id="availableColourID51"
@@ -240,10 +270,7 @@ function ProductInfo(props) {
               className="designerProductInfo__colourBackground"
               onClick={() => setColourNumber("45")}
             >
-              <a
-                href="#"
-                onclick="changeProductColour(45);mmClose();return false"
-              >
+              <a href="#">
                 <input
                   type="hidden"
                   id="availableColourID45"
@@ -278,10 +305,7 @@ function ProductInfo(props) {
               className="designerProductInfo__colourBackground"
               onClick={() => setColourNumber("45")}
             >
-              <a
-                href="#"
-                onclick="changeProductColour(244);mmClose();return false"
-              >
+              <a href="#">
                 <input
                   type="hidden"
                   id="availableColourID244"
@@ -316,10 +340,7 @@ function ProductInfo(props) {
               className="designerProductInfo__colourBackground"
               onClick={() => setColourNumber("243")}
             >
-              <a
-                href="#"
-                onclick="changeProductColour(243);mmClose();return false"
-              >
+              <a href="#">
                 <input
                   type="hidden"
                   id="availableColourID243"
@@ -354,10 +375,7 @@ function ProductInfo(props) {
               className="designerProductInfo__colourBackground"
               onClick={() => setColourNumber("247")}
             >
-              <a
-                href="#"
-                onclick="changeProductColour(247);mmClose();return false"
-              >
+              <a href="#">
                 <input
                   type="hidden"
                   id="availableColourID247"
@@ -392,10 +410,7 @@ function ProductInfo(props) {
               className="designerProductInfo__colourBackground"
               onClick={() => setColourNumber("248")}
             >
-              <a
-                href="#"
-                onclick="changeProductColour(248);mmClose();return false"
-              >
+              <a href="#">
                 <input
                   type="hidden"
                   id="availableColourID248"
@@ -430,10 +445,7 @@ function ProductInfo(props) {
               className="designerProductInfo__colourBackground"
               onClick={() => setColourNumber("249")}
             >
-              <a
-                href="#"
-                onclick="changeProductColour(249);mmClose();return false"
-              >
+              <a href="#">
                 <input
                   type="hidden"
                   id="availableColourID249"
@@ -468,10 +480,7 @@ function ProductInfo(props) {
               className="designerProductInfo__colourBackground"
               onClick={() => setColourNumber("46")}
             >
-              <a
-                href="#"
-                onclick="changeProductColour(46);mmClose();return false"
-              >
+              <a href="#">
                 <input
                   type="hidden"
                   id="availableColourID46"
@@ -506,10 +515,7 @@ function ProductInfo(props) {
               className="designerProductInfo__colourBackground"
               onClick={() => setColourNumber("47")}
             >
-              <a
-                href="#"
-                onclick="changeProductColour(47);mmClose();return false"
-              >
+              <a href="#">
                 <input
                   type="hidden"
                   id="availableColourID47"
@@ -544,10 +550,7 @@ function ProductInfo(props) {
               className="designerProductInfo__colourBackground"
               onClick={() => setColourNumber("79")}
             >
-              <a
-                href="#"
-                onclick="changeProductColour(79);mmClose();return false"
-              >
+              <a href="#">
                 <input
                   type="hidden"
                   id="availableColourID79"
@@ -582,10 +585,7 @@ function ProductInfo(props) {
               className="designerProductInfo__colourBackground"
               onClick={() => setColourNumber("156")}
             >
-              <a
-                href="#"
-                onclick="changeProductColour(156);mmClose();return false"
-              >
+              <a href="#">
                 <input
                   type="hidden"
                   id="availableColourID156"
@@ -616,11 +616,11 @@ function ProductInfo(props) {
                 </picture>
               </a>
             </div>
-            <div className="designerProductInfo__colourBackground" onClick={() => setColourNumber("158")}>
-              <a
-                href="#"
-                onclick="changeProductColour(158);mmClose();return false"
-              >
+            <div
+              className="designerProductInfo__colourBackground"
+              onClick={() => setColourNumber("158")}
+            >
+              <a href="#">
                 <input
                   type="hidden"
                   id="availableColourID158"
@@ -651,11 +651,11 @@ function ProductInfo(props) {
                 </picture>
               </a>
             </div>
-            <div className="designerProductInfo__colourBackground" onClick={() => setColourNumber("28")}>
-              <a
-                href="#"
-                onclick="changeProductColour(28);mmClose();return false"
-              >
+            <div
+              className="designerProductInfo__colourBackground"
+              onClick={() => setColourNumber("28")}
+            >
+              <a href="#">
                 <input
                   type="hidden"
                   id="availableColourID28"
@@ -686,11 +686,11 @@ function ProductInfo(props) {
                 </picture>
               </a>
             </div>
-            <div className="designerProductInfo__colourBackground" onClick={() => setColourNumber("36")}>
-              <a
-                href="#"
-                onclick="changeProductColour(36);mmClose();return false"
-              >
+            <div
+              className="designerProductInfo__colourBackground"
+              onClick={() => setColourNumber("36")}
+            >
+              <a href="#">
                 <input
                   type="hidden"
                   id="availableColourID36"
@@ -721,11 +721,11 @@ function ProductInfo(props) {
                 </picture>
               </a>
             </div>
-            <div className="designerProductInfo__colourBackground" onClick={() => setColourNumber("38")}>
-              <a
-                href="#"
-                onclick="changeProductColour(38);mmClose();return false"
-              >
+            <div
+              className="designerProductInfo__colourBackground"
+              onClick={() => setColourNumber("38")}
+            >
+              <a href="#">
                 <input
                   type="hidden"
                   id="availableColourID38"
@@ -756,11 +756,11 @@ function ProductInfo(props) {
                 </picture>
               </a>
             </div>
-            <div className="designerProductInfo__colourBackground" onClick={() => setColourNumber("43")}>
-              <a
-                href="#"
-                onclick="changeProductColour(43);mmClose();return false"
-              >
+            <div
+              className="designerProductInfo__colourBackground"
+              onClick={() => setColourNumber("43")}
+            >
+              <a href="#">
                 <input
                   type="hidden"
                   id="availableColourID43"
@@ -791,11 +791,11 @@ function ProductInfo(props) {
                 </picture>
               </a>
             </div>
-            <div className="designerProductInfo__colourBackground" onClick={() => setColourNumber("246")}>
-              <a
-                href="#"
-                onclick="changeProductColour(246);mmClose();return false"
-              >
+            <div
+              className="designerProductInfo__colourBackground"
+              onClick={() => setColourNumber("246")}
+            >
+              <a href="#">
                 <input
                   type="hidden"
                   id="availableColourID246"
@@ -826,11 +826,11 @@ function ProductInfo(props) {
                 </picture>
               </a>
             </div>
-            <div className="designerProductInfo__colourBackground" onClick={() => setColourNumber("48")}>
-              <a
-                href="#"
-                onclick="changeProductColour(48);mmClose();return false"
-              >
+            <div
+              className="designerProductInfo__colourBackground"
+              onClick={() => setColourNumber("48")}
+            >
+              <a href="#">
                 <input
                   type="hidden"
                   id="availableColourID48"
@@ -861,11 +861,11 @@ function ProductInfo(props) {
                 </picture>
               </a>
             </div>
-            <div className="designerProductInfo__colourBackground" onClick={() => setColourNumber("37")}>
-              <a
-                href="#"
-                onclick="changeProductColour(37);mmClose();return false"
-              >
+            <div
+              className="designerProductInfo__colourBackground"
+              onClick={() => setColourNumber("37")}
+            >
+              <a href="#">
                 <input
                   type="hidden"
                   id="availableColourID37"
@@ -896,11 +896,11 @@ function ProductInfo(props) {
                 </picture>
               </a>
             </div>
-            <div className="designerProductInfo__colourBackground" onClick={() => setColourNumber("245")}>
-              <a
-                href="#"
-                onclick="changeProductColour(245);mmClose();return false"
-              >
+            <div
+              className="designerProductInfo__colourBackground"
+              onClick={() => setColourNumber("245")}
+            >
+              <a href="#">
                 <input
                   type="hidden"
                   id="availableColourID245"
@@ -931,11 +931,11 @@ function ProductInfo(props) {
                 </picture>
               </a>
             </div>
-            <div className="designerProductInfo__colourBackground" onClick={() => setColourNumber("21")}>
-              <a
-                href="#"
-                onclick="changeProductColour(21);mmClose();return false"
-              >
+            <div
+              className="designerProductInfo__colourBackground"
+              onClick={() => setColourNumber("21")}
+            >
+              <a href="#">
                 <input
                   type="hidden"
                   id="availableColourID21"
@@ -966,11 +966,11 @@ function ProductInfo(props) {
                 </picture>
               </a>
             </div>
-            <div className="designerProductInfo__colourBackground" onClick={() => setColourNumber("211")}>
-              <a
-                href="#"
-                onclick="changeProductColour(211);mmClose();return false"
-              >
+            <div
+              className="designerProductInfo__colourBackground"
+              onClick={() => setColourNumber("211")}
+            >
+              <a href="#">
                 <input
                   type="hidden"
                   id="availableColourID211"
@@ -1001,11 +1001,11 @@ function ProductInfo(props) {
                 </picture>
               </a>
             </div>
-            <div className="designerProductInfo__colourBackground" onClick={() => setColourNumber("39")}>
-              <a
-                href="#"
-                onclick="changeProductColour(39);mmClose();return false"
-              >
+            <div
+              className="designerProductInfo__colourBackground"
+              onClick={() => setColourNumber("39")}
+            >
+              <a href="#">
                 <input
                   type="hidden"
                   id="availableColourID39"
@@ -1038,7 +1038,9 @@ function ProductInfo(props) {
             </div>
             <div
               className="designerProductInfo__colourBackground"
-              onClick={() => setColourNumber("225")}
+              onClick={() => {
+                setColourNumber("225");
+              }}
             >
               <a href="#">
                 <input
@@ -1075,10 +1077,7 @@ function ProductInfo(props) {
               className="designerProductInfo__colourBackground"
               onClick={() => setColourNumber("4")}
             >
-              <a
-                href="#"
-                onclick="changeProductColour(4);mmClose();return false"
-              >
+              <a href="#">
                 <input
                   type="hidden"
                   id="availableColourID4"
@@ -1158,8 +1157,8 @@ function ProductInfo(props) {
               <button
                 type="button"
                 className="quantity__IncrementButton"
-                onClick={() => subQuantity(colourNumber)}
-                disabled={!itemQuantity}
+                onClick={decreaseQuantity}
+                disabled={!colourNumber}
               >
                 -
               </button>
@@ -1167,15 +1166,14 @@ function ProductInfo(props) {
                 id="quantity"
                 className="quantity__Input"
                 type="text"
-                value={itemQuantity ? itemQuantity : 1}
-                maxlength="3"
-                onblur="loadSubTotal()"
+                value={quantity ? quantity : 1}
+                maxLength="3"
               />
               <button
                 type="button"
                 className="quantity__IncrementButton"
-                onClick={() => addQuantity(colourNumber)}
-                disabled={!itemQuantity}
+                onClick={increaseQuantity}
+                disabled={!colourNumber}
               >
                 +
               </button>
@@ -1250,20 +1248,17 @@ function ProductInfo(props) {
           <button
             id="buybtn"
             className="designerPage__button"
-            onClick={() => {
-              // routeChange("/checkout");
-              addToCart(colourNumber);
-            }}
+            onClick={addToCartHandler}
+            // onClick={async () => {
+            //   // addToCart(colourNumber);
+            //   addToCartHandler();
+            // }}
           >
             <span className="rotateClockwise">Add to cart +</span>
           </button>
         </div>
         <div className="designerPage__socialMediaShare">
-          <a
-            href="#"
-            className="designerPage__socialMediaShareLink"
-            onclick="openOptionDialog('#socialMediaShareModal');cancelEvent(event);"
-          >
+          <a href="#" className="designerPage__socialMediaShareLink">
             <img
               className="m-designerShare_Icon"
               src="https://images.tshirtstudio.com/designer/tools/share-icon-purple.svg"
@@ -1273,11 +1268,7 @@ function ProductInfo(props) {
           </a>
         </div>
         <div className="mDesignerPage__productDescription">
-          <a
-            className="mProductDescription__collapsibles"
-            href="#"
-            onclick="mDisplayProductDescription('mDescription',this)"
-          >
+          <a className="mProductDescription__collapsibles" href="#">
             <span>Description</span>
             <img
               width="1.69"
@@ -1321,10 +1312,7 @@ function ProductInfo(props) {
             </div>
             <div className="productImage">
               <div className="productImage__detailImageContainer">
-                <button
-                  onclick="changeDescriptionImage('Previous')"
-                  className="productImage__detailImageArrow productImage__detailImageArrow--left"
-                >
+                <button className="productImage__detailImageArrow productImage__detailImageArrow--left">
                   ‹
                 </button>
                 <picture>
@@ -1411,10 +1399,7 @@ function ProductInfo(props) {
                     className="productImage__detailImage productImage__detailImage--hide"
                   />
                 </picture>
-                <button
-                  onclick="changeDescriptionImage('Next')"
-                  className="productImage__detailImageArrow productImage__detailImageArrow--right"
-                >
+                <button className="productImage__detailImageArrow productImage__detailImageArrow--right">
                   ›
                 </button>
               </div>
@@ -1438,11 +1423,7 @@ function ProductInfo(props) {
               </div>
             </div>
           </div>
-          <a
-            href="#"
-            className="mProductDescription__collapsibles"
-            onclick="mDisplayProductDescription('mSizeGuide',this)"
-          >
+          <a href="#" className="mProductDescription__collapsibles">
             <span>Size Guide </span>
             <img
               width="1.69"
@@ -1523,11 +1504,7 @@ function ProductInfo(props) {
               </tbody>
             </table>
           </div>
-          <a
-            href="#"
-            className="mProductDescription__collapsibles"
-            onclick="mDisplayProductDescription('mBulkDiscount',this)"
-          >
+          <a href="#" className="mProductDescription__collapsibles">
             <span>Bulk Discount</span>
             <img
               width="1.69"

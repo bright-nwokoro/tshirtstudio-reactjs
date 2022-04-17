@@ -1,8 +1,48 @@
-import React from "react";
+import React, { useRef } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
-import './Authenticate.css'
+import "./Authenticate.css";
 
 function Join() {
+  const nameRef = useRef();
+  const emailRef = useRef();
+  const passwordRef = useRef();
+  const telRef = useRef();
+
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    if (
+      nameRef.current.value === "" ||
+      emailRef.current.value === "" ||
+      passwordRef.current.value === "" ||
+      telRef.current.value === ""
+    ) {
+      return alert("One or more fields are empty");
+    }
+    axios.defaults.withCredentials = true;
+    axios({
+      method: "POST",
+      url: "http://localhost:3100/api/v1/join",
+      data: {
+        Name: nameRef.current.value,
+        Email: emailRef.current.value,
+        Password: passwordRef.current.value,
+        Phone: telRef.current.value,
+      },
+      withCredentials: true,
+    })
+      .then((response) => {
+        alert(response.data.message);
+        // return useNavigate("/sign-in");
+        window.location.href = "/";
+        // console.log(response.headers);
+      })
+      .catch((error) => {
+        alert(error.response.data.message);
+      });
+  };
+
   return (
     <>
       <div className="mainForm gutters">
@@ -13,29 +53,33 @@ function Join() {
             <div id="registerDetails">
               <div className="mainForm__inputLabel">*Name</div>
               <input
+                required
                 tabIndex="1"
                 id="customerName"
                 type="text"
                 className="mainForm__inputField"
                 name="Name"
-                value=""
+                defaultValue=""
                 maxLength="100"
-                placeholder="John Doe"
+                placeHolder="John Doe"
+                ref={nameRef}
               />
               <div className="mainForm__inputLabel mainForm__inputLabel--topMargin">
                 *Email
               </div>
               <input
+                required
                 tabIndex="2"
                 id="emailAddress"
                 type="text"
                 className="mainForm__inputField"
                 name="Email"
-                value=""
+                defaultValue=""
                 maxLength="100"
                 placeholder="johndoe@example.com"
+                ref={emailRef}
               />
-              <div className="mainForm__inputLabel mainForm__inputLabel--topMargin">
+              {/* <div className="mainForm__inputLabel mainForm__inputLabel--topMargin">
                 *Re-enter Email
               </div>
               <input
@@ -44,22 +88,24 @@ function Join() {
                 type="text"
                 className="mainForm__inputField"
                 name="EmailCopy"
-                value=""
+                defaultValue=""
                 maxLength="100"
                 placeholder="johndoe@example.com"
-              />
+              /> */}
               <div className="mainForm__inputLabel mainForm__inputLabel--topMargin">
                 *Telephone
               </div>
               <input
+                required
                 tabIndex="4"
                 id="customerTelephone"
                 className="mainForm__inputField"
                 type="text"
                 name="Telephone"
-                value=""
+                defaultValue=""
                 maxLength="15"
                 placeholder="01234567890"
+                ref={telRef}
               />
               <div className="mainForm__inputFieldSmall">
                 If you provide a mobile number we'll let you know by SMS if
@@ -74,27 +120,30 @@ function Join() {
                 className="mainForm__inputField"
                 type="password"
                 name="Password"
-                value=""
+                defaultValue=""
                 maxLength="25"
+                placeholder="********"
+                ref={passwordRef}
               />
-              <div className="mainForm__inputLabel mainForm__inputLabel--topMargin">
+              {/* <div className="mainForm__inputLabel mainForm__inputLabel--topMargin">
                 *Re-enter new Password
               </div>
               <input
+              required
                 tabIndex="6"
                 id="customerPasswordCopy"
                 className="mainForm__inputField"
                 type="password"
                 name="PasswordCopy"
-                value=""
+                defaultValue=""
                 maxLength="25"
-              />
+              /> */}
               <button
                 tabIndex="7"
                 id="registerButton"
                 type="submit"
                 className="mainForm__Button mainForm__Button--marginTop"
-                onClick="register(); return false"
+                onClick={onSubmit}
               >
                 <span className="rotateClockwise">Create account</span>
               </button>
@@ -106,7 +155,7 @@ function Join() {
                   tabIndex="9"
                   id="signInButton"
                   className="mainForm__Button"
-                  onClick="goToSignIn(); return false"
+                  onClick={useNavigate("/sign-in")}
                 >
                   <span className="rotateClockwise">Sign In</span>
                 </button>
